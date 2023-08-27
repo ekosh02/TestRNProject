@@ -22,4 +22,4 @@ export const counterSlice = createSlice({
 
 export const {multiplication, division, reset} = counterSlice.actions;
 
-export default counterSlice.reducer;
+export default counterSlice;
