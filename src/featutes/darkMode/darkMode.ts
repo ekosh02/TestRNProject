@@ -1,6 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
-const initialState = {
+export interface DarkModeState {
+  value: boolean
+}
+
+const initialState: DarkModeState = {
   value: false,
 };
 
@@ -15,5 +20,5 @@ export const darkMode = createSlice({
 });
 
 export const {setIsDark} = darkMode.actions;
-
+export const selectCount = (state: RootState) => state.darkMode.value
 export default darkMode;

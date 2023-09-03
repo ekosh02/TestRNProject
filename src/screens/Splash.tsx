@@ -1,7 +1,11 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../navigation/RootNavigation';
 
-const Splash = ({navigation}) => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
+
+const Splash = ({navigation}: Props) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('BottomNavigation');

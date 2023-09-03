@@ -2,7 +2,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Tab1 from '../screens/Tab1';
 import Tab2 from '../screens/Tab2';
 
-const Tab = createBottomTabNavigator();
+export type BottomStackParamList = {
+  Tab1: undefined;
+  Tab2: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomStackParamList>();
 
 const BottomNavigation = () => {
   return (

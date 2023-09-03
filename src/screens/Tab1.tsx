@@ -1,28 +1,36 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {multiplication, division, reset} from '../featutes/counter/counterSlice';
+import {
+  multiplication,
+  division,
+  reset,
+} from '../featutes/counter/counterSlice';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useGetPokemonByNameQuery} from './../services/pokemon';
+import {useGetPokemonByNameQuery} from '../services/pokemon';
+import {useAppDispatch, useAppSelector} from '../hooks/useStore';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {BottomStackParamList} from '../navigation/BottomNavigation';
 
-const Tab1 = ({navigation}) => {
-  const count = useSelector(state => {
+type Props = NativeStackScreenProps<BottomStackParamList, 'Tab1'>;
+
+const Tab1 = ({}: Props) => {
+  const count = useAppSelector(state => {
     return state.counter.value;
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const {data, error, isLoading} = useGetPokemonByNameQuery('gible');
+  const {data, error, isLoading} = useGetPokemonByNameQuery<any>('gible');
 
   return (
     <ScrollView style={styles.view}>
       <View style={styles.card1}>
         <Button
-          title="Increment value"
+          title="Multiplication value"
           onPress={() => dispatch(multiplication(2))}
           color={'blue'}
         />
         <Button
-          title="Decrement value"
+          title="Division value"
           onPress={() => dispatch(division(2))}
           color={'red'}
         />
@@ -39,7 +47,7 @@ const Tab1 = ({navigation}) => {
         </View>
       ) : error ? (
         <View style={styles.card2Text}>
-          <Text>{error?.data}</Text>
+          <Text>{error.data}</Text>
         </View>
       ) : (
         <View style={styles.card2Text}>

@@ -6,12 +6,19 @@ import {NavigationContainer} from '@react-navigation/native';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {useColorScheme} from 'react-native';
 import {useSelector} from 'react-redux';
+import { useAppSelector } from '../hooks/useStore';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Splash: undefined,
+  BottomNavigation: undefined,
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
-  const isDark = useSelector(state => {
-    return state.dark.value;
+  const isDark = useAppSelector(state => {
+    return state.darkMode.value;
   });
 
   return (
@@ -23,5 +30,6 @@ const RootNavigation = () => {
     </NavigationContainer>
   );
 };
+
 
 export default RootNavigation;
