@@ -12,6 +12,8 @@ import {BottomStackParamList} from '../navigation/BottomNavigation';
 import {useAppDispatch, useAppSelector} from '../hooks/useStore';
 import {postAdd, postDelete} from '../featutes/posts/posts';
 import {v4 as uuidv4} from 'uuid';
+import {typography} from '../utils/typography';
+import setFontStyles from '../utils/setFontStyles';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab2'>;
 
@@ -84,8 +86,12 @@ const Tab2 = ({}: Props) => {
           return (
             <View style={styles.itemView}>
               <Text>id: {item.id}</Text>
-              <Text>title: title{item.title}</Text>
-              <Text>description: {item.description}</Text>
+              <Text style={{...typography('contentBold')}}>
+                title: title{item.title}
+              </Text>
+              <Text style={{...setFontStyles(14, '500')}}>
+                description: {item.description}
+              </Text>
               <TouchableOpacity onPress={() => onPressDeletePost(item.id)}>
                 <Text style={{color: 'red'}}>Remove</Text>
               </TouchableOpacity>
