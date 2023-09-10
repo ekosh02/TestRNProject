@@ -1,16 +1,6 @@
 import {TextStyle} from 'react-native';
 import setFontStyles from './setFontStyles';
-
-enum Graph {
-  big = 'big',
-  bigBold = 'bigBold',
-  headings = 'headings',
-  headingsBold = 'headingsBold',
-  rounded = 'rounded',
-  roundedBold = 'roundedBold',
-  content = 'content',
-  contentBold = 'contentBold',
-}
+import {Graph} from '../constants/graph';
 
 type GraphType = keyof typeof Graph;
 
@@ -18,7 +8,7 @@ interface Font {
   [index: string]: TextStyle;
 }
 
-export const typography = (graph: GraphType, color: string = '#000') => {    
+export const typography = (graph: GraphType, color: string = '#000') => {
   const font: Font = {
     [Graph.big]: {
       fontSize: 30,
