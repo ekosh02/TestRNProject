@@ -3,6 +3,10 @@ import Splash from '../screens/Splash';
 import BottomNavigation from './BottomNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 import useTheme from '../hooks/useTheme';
+import {useEffect} from 'react';
+import {getStorage} from '../utils/storage';
+import {useAppDispatch} from '../hooks/useStore';
+import {setIsDark} from '../featutes/darkMode/darkMode';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -13,6 +17,17 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigation = () => {
   const {colors} = useTheme();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const darkMode = await getStorage('darkMode');
+    dispatch(setIsDark(darkMode));
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -21,7 +36,7 @@ const RootNavigation = () => {
           headerStyle: {
             backgroundColor: colors.background,
             borderBottomWidth: 0.5,
-            borderBottomColor: colors.border
+            borderBottomColor: colors.border,
           },
         }}>
         <Stack.Screen name="Splash" component={Splash} />

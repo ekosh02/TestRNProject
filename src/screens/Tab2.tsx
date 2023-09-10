@@ -15,19 +15,16 @@ import {v4 as uuidv4} from 'uuid';
 import {typography} from '../utils/typography';
 import setFontStyles from '../utils/setFontStyles';
 import useTheme from '../hooks/useTheme';
+import {setStorage} from '../utils/storage';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab2'>;
 
 const Tab2 = ({}: Props) => {
-  const {colors} = useTheme();
+  const {colors, dark} = useTheme();
 
   const [postData, setPosData] = useState({
     title: '',
     description: '',
-  });
-
-  const isDark = useAppSelector(state => {
-    return state.darkMode.value;
   });
 
   const posts = useAppSelector(state => {
@@ -54,6 +51,11 @@ const Tab2 = ({}: Props) => {
     dispatch(postDelete(id));
   };
 
+  const handleDarkModeSwitch = (value: boolean) => {
+    dispatch(setIsDark(value));
+    setStorage('darkMode', value);
+  };
+
   return (
     <View style={[styles.view, {backgroundColor: colors.background}]}>
       <View style={[styles.card1, {borderColor: colors.border}]}>
@@ -62,8 +64,8 @@ const Tab2 = ({}: Props) => {
           trackColor={{false: '#767577', true: '#e9e9e9'}}
           thumbColor={true ? colors.primary : '#767577'}
           ios_backgroundColor="#c6c6c6"
-          onValueChange={value => dispatch<any>(setIsDark(value))}
-          value={isDark}
+          onValueChange={handleDarkModeSwitch}
+          value={dark}
         />
       </View>
       <TextInput
