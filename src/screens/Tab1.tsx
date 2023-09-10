@@ -10,6 +10,7 @@ import {useGetPokemonByNameQuery} from '../services/pokemon';
 import {useAppDispatch, useAppSelector} from '../hooks/useStore';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {BottomStackParamList} from '../navigation/BottomNavigation';
+import useTheme from '../hooks/useTheme';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab1'>;
 
@@ -19,11 +20,13 @@ const Tab1 = ({}: Props) => {
   });
   const dispatch = useAppDispatch();
 
+  const {colors} = useTheme();
+
   const {data, error, isLoading} = useGetPokemonByNameQuery<any>('gible');
 
   return (
-    <ScrollView style={styles.view}>
-      <View style={styles.card1}>
+    <ScrollView style={[styles.view, {backgroundColor: colors.background}]}>
+      <View style={[styles.card1, {borderColor: colors.border}]}>
         <Button
           title="Multiplication value"
           onPress={() => dispatch(multiplication(2))}
@@ -39,27 +42,27 @@ const Tab1 = ({}: Props) => {
           onPress={() => dispatch(reset())}
           color={'gray'}
         />
-        <Text style={{fontSize: 20}}>{count}</Text>
+        <Text style={{fontSize: 20, color: colors.font}}>{count}</Text>
       </View>
       {isLoading ? (
         <View style={styles.card2Text}>
-          <Text>Loading...</Text>
+          <Text style={{color: colors.font}}>Loading...</Text>
         </View>
       ) : error ? (
         <View style={styles.card2Text}>
-          <Text>{error.data}</Text>
+          <Text style={{color: colors.font}}>{error.data}</Text>
         </View>
       ) : (
         <View style={styles.card2Text}>
-          <Text>
+          <Text style={{color: colors.font}}>
             {'name: '}
             {data?.name}
           </Text>
-          <Text>
+          <Text style={{color: colors.font}}>
             {'height: '}
             {data?.height}
           </Text>
-          <Text>
+          <Text style={{color: colors.font}}>
             {'weight: '}
             {data?.weight}
           </Text>
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
   card1: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#gray',
     padding: 10,
     margin: 16,
     justifyContent: 'center',

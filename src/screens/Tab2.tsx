@@ -14,10 +14,13 @@ import {postAdd, postDelete} from '../featutes/posts/posts';
 import {v4 as uuidv4} from 'uuid';
 import {typography} from '../utils/typography';
 import setFontStyles from '../utils/setFontStyles';
+import useTheme from '../hooks/useTheme';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab2'>;
 
 const Tab2 = ({}: Props) => {
+  const {colors} = useTheme();
+
   const [postData, setPosData] = useState({
     title: '',
     description: '',
@@ -26,9 +29,11 @@ const Tab2 = ({}: Props) => {
   const isDark = useAppSelector(state => {
     return state.darkMode.value;
   });
+
   const posts = useAppSelector(state => {
     return state.posts;
   });
+
   const dispatch = useAppDispatch();
 
   const onPressAddPost = () => {
@@ -50,16 +55,12 @@ const Tab2 = ({}: Props) => {
   };
 
   return (
-    <View style={styles.view}>
-      <View style={styles.card1}>
-        {isDark ? (
-          <Text style={{color: 'white'}}>Dark</Text>
-        ) : (
-          <Text>Light</Text>
-        )}
+    <View style={[styles.view, {backgroundColor: colors.background}]}>
+      <View style={[styles.card1, {borderColor: colors.border}]}>
+        <Text style={{color: colors.font}}>Dark</Text>
         <Switch
-          trackColor={{false: '#767577', true: '#f1f1f1'}}
-          thumbColor={true ? '#81b0ff' : '#c6c6c6'}
+          trackColor={{false: '#767577', true: '#e9e9e9'}}
+          thumbColor={true ? colors.primary : '#767577'}
           ios_backgroundColor="#c6c6c6"
           onValueChange={value => dispatch<any>(setIsDark(value))}
           value={isDark}
@@ -67,29 +68,35 @@ const Tab2 = ({}: Props) => {
       </View>
       <TextInput
         placeholder="Title"
-        style={styles.input}
+        placeholderTextColor={colors.grayFont}
+        style={[styles.input, {color: colors.font, borderColor: colors.border}]}
         onChangeText={value => setPosData(prev => ({...prev, title: value}))}
       />
       <TextInput
         placeholder="Description"
-        style={styles.input}
+        placeholderTextColor={colors.grayFont}
+        style={[styles.input, {color: colors.font, borderColor: colors.border}]}
         onChangeText={value =>
           setPosData(prev => ({...prev, description: value}))
         }
       />
-      <TouchableOpacity style={styles.button} onPress={onPressAddPost}>
-        <Text>Добавить пост</Text>
+      <TouchableOpacity
+        style={[styles.button, {backgroundColor: colors.primary}]}
+        onPress={onPressAddPost}>
+        <Text style={{color: '#fff'}}>Добавить пост</Text>
       </TouchableOpacity>
       <FlatList
         data={posts}
         renderItem={({item}) => {
           return (
-            <View style={styles.itemView}>
-              <Text>id: {item.id}</Text>
-              <Text style={{...typography('contentBold')}}>
+            <View style={[styles.itemView, {borderColor: colors.border}]}>
+              <Text style={{...setFontStyles(14, '500', colors.font)}}>
+                id: {item.id}
+              </Text>
+              <Text style={{...typography('contentBold', colors.font)}}>
                 title: title{item.title}
               </Text>
-              <Text style={{...setFontStyles(14, '500')}}>
+              <Text style={{...setFontStyles(14, '500', colors.font)}}>
                 description: {item.description}
               </Text>
               <TouchableOpacity onPress={() => onPressDeletePost(item.id)}>
@@ -101,7 +108,7 @@ const Tab2 = ({}: Props) => {
         keyExtractor={item => item.id + ''}
         ListEmptyComponent={
           <View style={styles.emptyView}>
-            <Text>List empty</Text>
+            <Text style={{color: colors.font}}>List empty</Text>
           </View>
         }
       />
@@ -140,7 +147,6 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     alignItems: 'center',
     borderRadius: 10,
-    backgroundColor: '#81b0ff',
   },
   emptyView: {
     marginTop: 10,
