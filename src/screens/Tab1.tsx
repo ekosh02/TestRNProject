@@ -9,8 +9,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useGetPokemonByNameQuery} from '../services/pokemon';
 import {useAppDispatch, useAppSelector} from '../hooks/useStore';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomStackParamList} from '../navigation/BottomNavigation';
 import useTheme from '../hooks/useTheme';
+import { BottomStackParamList } from '../@types/navigation';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab1'>;
 

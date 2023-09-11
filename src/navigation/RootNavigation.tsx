@@ -7,11 +7,7 @@ import {useEffect} from 'react';
 import {getStorage} from '../utils/storage';
 import {useAppDispatch} from '../hooks/useStore';
 import {setIsDark} from '../featutes/darkMode/darkMode';
-
-export type RootStackParamList = {
-  Splash: undefined;
-  BottomNavigation: undefined;
-};
+import { RootStackParamList } from '../@types/navigation';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

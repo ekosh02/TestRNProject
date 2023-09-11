@@ -8,7 +8,6 @@ import {
 } from 'react-native-gesture-handler';
 import {setIsDark} from '../featutes/darkMode/darkMode';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomStackParamList} from '../navigation/BottomNavigation';
 import {useAppDispatch, useAppSelector} from '../hooks/useStore';
 import {postAdd, postDelete} from '../featutes/posts/posts';
 import {v4 as uuidv4} from 'uuid';
@@ -16,6 +15,7 @@ import {typography} from '../utils/typography';
 import setFontStyles from '../utils/setFontStyles';
 import useTheme from '../hooks/useTheme';
 import {setStorage} from '../utils/storage';
+import {BottomStackParamList} from '../@types/navigation';
 
 type Props = NativeStackScreenProps<BottomStackParamList, 'Tab2'>;
 
