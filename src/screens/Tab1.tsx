@@ -22,7 +22,7 @@ const Tab1 = ({}: Props) => {
 
   const {colors} = useTheme();
 
-  const {data, error, isLoading} = useGetPokemonByNameQuery<any>('gible');
+  const {data, error, isLoading} = useGetPokemonByNameQuery('gible');
 
   return (
     <ScrollView style={[styles.view, {backgroundColor: colors.background}]}>
